@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dev Lab - Service Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+            padding: 3rem;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .service-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .open-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .open-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .databases-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .databases-section h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .db-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .db-card {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .db-card h4 {
+            color: #667eea;
+            margin-bottom: 0.75rem;
+        }
+
+        .db-info {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .db-info code {
+            background: #f0f0f0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        .tech-stack {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-stack h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .tech-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-col h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .tech-col ul {
+            list-style: none;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .tech-col li {
+            padding: 0.35rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tech-col li:last-child {
+            border-bottom: none;
+        }
+
+        .commands {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        .commands h3 {
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .commands code {
+            display: block;
+            padding: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .db-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Web Development Lab</h1>
+        <p class="subtitle">Your All-in-One Development Environment</p>
+
+        <div class="services-grid">
+            <div class="service-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h3>🌐 Web Server</h3>
+                <p>PHP 8.2 with Apache</p>
+                <span class="badge">Port 8080</span>
+                <a href="http://localhost:8080" class="open-btn" target="_blank">Open →</a>
+            </div>
+
+            <div class="service-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <h3>📊 phpMyAdmin</h3>
+                <p>MySQL/MariaDB GUI</p>
+                <span class="badge">Port 8081</span>
+                <a href="http://localhost:8081" class="open-btn" target="_blank">Open →</a>
+            </div>
+
+            <div class="service-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <h3>🗄️ pgAdmin</h3>
+                <p>PostgreSQL Management</p>
+                <span class="badge">Port 5050</span>
+                <a href="http://localhost:5050" class="open-btn" target="_blank">Open →</a>
+            </div>
+
+            <div class="service-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <h3>🌿 MongoDB Express</h3>
+                <p>MongoDB Web GUI</p>
+                <span class="badge">Port 8082</span>
+                <a href="http://localhost:8082" class="open-btn" target="_blank">Open →</a>
+            </div>
+
+            <div class="service-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <h3>📧 MailHog</h3>
+                <p>Email Testing Tool</p>
+                <span class="badge">Port 8025</span>
+                <a href="http://localhost:8025" class="open-btn" target="_blank">Open →</a>
+            </div>
+
+            <div class="service-card" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                <h3>⚛️ React Frontend</h3>
+                <p>Modern JS Development</p>
+                <span class="badge">Port 5173</span>
+                <a href="http://localhost:5173" class="open-btn" target="_blank">Open →</a>
+            </div>
+        </div>
+
+        <div class="databases-section">
+            <h2>📊 Databases</h2>
+            <div class="db-grid">
+                <div class="db-card">
+                    <h4>MySQL 8.0</h4>
+                    <div class="db-info">
+                        <strong>Port:</strong> 3306<br>
+                        <strong>Host:</strong> <code>localhost</code><br>
+                        <strong>User:</strong> <code>app_user</code><br>
+                        <strong>Password:</strong> <code>app_pass</code>
+                    </div>
+                </div>
+
+                <div class="db-card">
+                    <h4>MariaDB 10.11</h4>
+                    <div class="db-info">
+                        <strong>Port:</strong> 3307<br>
+                        <strong>Host:</strong> <code>localhost</code><br>
+                        <strong>User:</strong> <code>maria_user</code><br>
+                        <strong>Password:</strong> <code>maria_pass</code>
+                    </div>
+                </div>
+
+                <div class="db-card">
+                    <h4>PostgreSQL 15</h4>
+                    <div class="db-info">
+                        <strong>Port:</strong> 5432<br>
+                        <strong>Host:</strong> <code>localhost</code><br>
+                        <strong>User:</strong> <code>postgres_user</code><br>
+                        <strong>Password:</strong> <code>postgres_pass</code>
+                    </div>
+                </div>
+
+                <div class="db-card">
+                    <h4>MongoDB 6.0</h4>
+                    <div class="db-info">
+                        <strong>Port:</strong> 27017<br>
+                        <strong>Host:</strong> <code>localhost</code><br>
+                        <strong>User:</strong> <code>root</code><br>
+                        <strong>Password:</strong> <code>rootpass</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <h2>🛠️ Technology Stack</h2>
+            <div class="tech-columns">
+                <div class="tech-col">
+                    <h4>Backend</h4>
+                    <ul>
+                        <li>PHP 8.2</li>
+                        <li>Apache 2.4</li>
+                        <li>Composer</li>
+                        <li>Xdebug</li>
+                    </ul>
+                </div>
+
+                <div class="tech-col">
+                    <h4>Frontend</h4>
+                    <ul>
+                        <li>React 18</li>
+                        <li>TypeScript</li>
+                        <li>Vite</li>
+                        <li>Bootstrap/CSS</li>
+                    </ul>
+                </div>
+
+                <div class="tech-col">
+                    <h4>Databases</h4>
+                    <ul>
+                        <li>MySQL 8.0</li>
+                        <li>MariaDB 10.11</li>
+                        <li>PostgreSQL 15</li>
+                        <li>MongoDB 6.0</li>
+                    </ul>
+                </div>
+
+                <div class="tech-col">
+                    <h4>Dev Tools</h4>
+                    <ul>
+                        <li>Node.js 18</li>
+                        <li>npm/yarn</li>
+                        <li>Docker</li>
+                        <li>Docker Compose</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="commands">
+            <h3>⚡ Quick Commands</h3>
+            <code>docker compose up -d          # Start all services</code>
+            <code>docker compose logs -f        # View logs</code>
+            <code>docker compose exec workspace bash  # PHP shell</code>
+            <code>docker compose exec frontend npm install  # Install dependencies</code>
+            <code>docker compose down           # Stop all services</code>
+            <code>bash health-check.sh          # Verify all services</code>
+        </div>
+    </div>
+</body>
+</html>

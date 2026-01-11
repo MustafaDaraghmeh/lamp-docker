@@ -1,0 +1,271 @@
+════════════════════════════════════════════════════════════════════════════════
+                      WEB DEVELOPMENT LAB - FILE INDEX
+════════════════════════════════════════════════════════════════════════════════
+
+START HERE:
+───────────────────────────────────────────────────────────────────────────────
+1. bash startup.sh                    (Launches everything)
+2. bash health-check.sh               (Verify all services)
+3. http://localhost:8080              (PHP Dashboard)
+4. http://localhost:5173              (React Frontend)
+
+DOCUMENTATION (Read in order):
+───────────────────────────────────────────────────────────────────────────────
+1. README.md                          (Complete guide - 60+ sections)
+2. QUICK_START.sh                     (Student quick reference)
+3. SERVICES.txt                       (Service details & credentials)
+4. SETUP_COMPLETE.txt                 (Instructor information)
+5. This file (INDEX.txt)              (You are here)
+
+CONFIGURATION FILES:
+───────────────────────────────────────────────────────────────────────────────
+docker-compose.yml                    (11 services configuration)
+.env                                  (Database passwords & settings)
+docker/web/Dockerfile                 (Custom PHP image build)
+
+AUTOMATION SCRIPTS:
+───────────────────────────────────────────────────────────────────────────────
+startup.sh                            (Builds & starts everything)
+health-check.sh                       (Verifies all services running)
+QUICK_START.sh                        (Displays student guide)
+
+BACKEND (PHP):
+───────────────────────────────────────────────────────────────────────────────
+www/index.php                         (PHP dashboard - edit here)
+www/dashboard.html                    (HTML service dashboard)
+
+FRONTEND (React + TypeScript):
+───────────────────────────────────────────────────────────────────────────────
+frontend/src/App.tsx                  (Main React component - edit here)
+frontend/src/App.css                  (Component styles)
+frontend/src/main.tsx                 (React entry point)
+frontend/src/index.css                (Global styles)
+frontend/package.json                 (npm dependencies)
+frontend/vite.config.ts               (Vite build configuration)
+frontend/tsconfig.json                (TypeScript configuration)
+frontend/index.html                   (HTML template)
+
+DATABASES:
+───────────────────────────────────────────────────────────────────────────────
+db/init/01_schema_01.sql              (Sample schema - add yours here)
+db/init/01_schema_02.sql              (Sample data - add yours here)
+
+════════════════════════════════════════════════════════════════════════════════
+
+SERVICES & PORTS:
+────────────────────────────────────────────────────────────────────────────────
+
+WEB SERVERS:
+  PHP/Apache        http://localhost:8080
+  React Dev Server  http://localhost:5173
+
+DATABASE GUIs:
+  phpMyAdmin        http://localhost:8081  (MySQL/MariaDB)
+  pgAdmin           http://localhost:5050  (PostgreSQL)
+  MongoDB Express   http://localhost:8082  (MongoDB)
+  MailHog           http://localhost:8025  (Email testing)
+
+DATABASES:
+  MySQL             localhost:3306  (User: app_user)
+  MariaDB           localhost:3307  (User: maria_user)
+  PostgreSQL        localhost:5432  (User: postgres_user)
+  MongoDB           localhost:27017 (User: root)
+
+════════════════════════════════════════════════════════════════════════════════
+
+COMMON COMMANDS:
+────────────────────────────────────────────────────────────────────────────────
+
+Start services:
+  bash startup.sh
+
+View services status:
+  docker compose ps
+
+View logs:
+  docker compose logs -f [service-name]
+
+Access PHP/Composer:
+  docker compose exec workspace bash
+
+Access Node/npm:
+  docker compose exec frontend bash
+
+Stop services:
+  docker compose down
+
+Restart services:
+  docker compose restart
+
+Full reset (deletes data):
+  docker compose down -v
+
+Run health check:
+  bash health-check.sh
+
+════════════════════════════════════════════════════════════════════════════════
+
+QUICK WORKFLOWS:
+────────────────────────────────────────────────────────────────────────────────
+
+EDIT PHP FILE:
+  1. Edit: www/yourfile.php
+  2. Visit: http://localhost:8080/yourfile.php
+  3. Auto-reloads on save
+
+EDIT REACT COMPONENT:
+  1. Edit: frontend/src/App.tsx
+  2. Visit: http://localhost:5173
+  3. Hot reload enabled (instant changes)
+
+CREATE DATABASE:
+  1. Visit: http://localhost:8081 (phpMyAdmin for MySQL)
+  2. Or: http://localhost:5050 (pgAdmin for PostgreSQL)
+  3. Or: http://localhost:8082 (MongoDB Express)
+  4. Create tables/collections via GUI
+
+INITIALIZE DATABASE:
+  1. Add SQL to: db/init/01_schema_XX.sql
+  2. Run: docker compose down -v
+  3. Run: bash startup.sh
+  4. SQL executes automatically
+
+INSTALL PACKAGES:
+  PHP: docker compose exec workspace composer require [package]
+  Node: docker compose exec frontend npm install [package]
+
+════════════════════════════════════════════════════════════════════════════════
+
+DATABASE CREDENTIALS (from .env):
+────────────────────────────────────────────────────────────────────────────────
+
+MySQL:
+  Host: mysql_db
+  Port: 3306
+  User: app_user
+  Pass: app_pass
+  DB: app_db
+
+MariaDB:
+  Host: mariadb
+  Port: 3306
+  User: maria_user
+  Pass: maria_pass
+  DB: mariadb_db
+
+PostgreSQL:
+  Host: postgres
+  Port: 5432
+  User: postgres_user
+  Pass: postgres_pass
+  DB: postgres_db
+
+MongoDB:
+  Host: mongodb
+  Port: 27017
+  User: root
+  Pass: rootpass
+  DB: app_db
+
+════════════════════════════════════════════════════════════════════════════════
+
+WHAT'S INCLUDED:
+────────────────────────────────────────────────────────────────────────────────
+
+✓ 11 Microservices (all running simultaneously)
+✓ 4 Different databases (students can choose)
+✓ 4 Database management GUIs (phpMyAdmin, pgAdmin, MongoDB Express)
+✓ Modern tech stack (React 18, TypeScript, PHP 8.2, Vite)
+✓ Email testing (MailHog)
+✓ Automated startup (bash startup.sh)
+✓ Health verification (bash health-check.sh)
+✓ Comprehensive documentation (README.md)
+✓ Student-friendly guides (QUICK_START.sh)
+✓ Fully isolated Docker environment
+✓ Data persistence with volumes
+✓ Live file synchronization
+
+════════════════════════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING:
+────────────────────────────────────────────────────────────────────────────────
+
+Service not responding?
+  → docker compose logs -f [service-name]
+  → Check if port is already in use
+  → Wait 60 seconds after startup
+
+Database connection fails?
+  → Verify service is running: docker compose ps
+  → Check credentials in .env
+  → Use service name (e.g., mysql_db), not localhost
+
+Port already in use?
+  → Edit docker-compose.yml
+  → Change port (e.g., "8085:80" for web)
+  → Run: docker compose up -d
+
+Out of disk space?
+  → docker system prune -a --volumes
+
+Changes not showing?
+  → Hard refresh browser: Ctrl+Shift+R (or Cmd+Shift+R on Mac)
+  → For Docker: docker compose restart
+
+════════════════════════════════════════════════════════════════════════════════
+
+LEARNING PATHS:
+────────────────────────────────────────────────────────────────────────────────
+
+BEGINNER (Week 1-4):
+  • Edit www/index.php
+  • Learn basic PHP
+  • Use phpMyAdmin for SQL basics
+  • No React needed yet
+
+INTERMEDIATE (Week 5-8):
+  • Build PHP APIs
+  • Connect to database
+  • Use Composer for packages
+  • Start learning React
+
+ADVANCED (Week 9-16):
+  • Full-stack project (React + PHP)
+  • Multiple databases
+  • Email integration (MailHog)
+  • DevOps concepts (Docker, networking)
+
+EXPERT:
+  • Modify docker-compose.yml
+  • Add custom PHP extensions
+  • Deploy concepts
+  • Microservices architecture
+
+════════════════════════════════════════════════════════════════════════════════
+
+GETTING HELP:
+────────────────────────────────────────────────────────────────────────────────
+
+Check these files:
+  README.md           → Complete documentation
+  QUICK_START.sh      → Quick reference guide
+  SERVICES.txt        → Service details
+  SETUP_COMPLETE.txt  → Instructor guide
+
+Run health check:
+  bash health-check.sh
+
+View service logs:
+  docker compose logs -f [service-name]
+
+Service names for logs:
+  web, workspace, frontend, node
+  mysql_db, mariadb, postgres, mongodb
+  phpmyadmin, pgadmin, mongo_express, mailhog
+
+════════════════════════════════════════════════════════════════════════════════
+
+                       Version: 1.0 (January 2025)
+                    Created for Web Development Education
+
+════════════════════════════════════════════════════════════════════════════════

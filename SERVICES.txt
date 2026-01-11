@@ -1,0 +1,180 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                   WEB DEVELOPMENT LAB - SERVICES OVERVIEW                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🌐 FRONTEND SERVICES
+────────────────────────────────────────────────────────────────────────────────
+  ⚛️  React + TypeScript
+      URL: http://localhost:5173
+      Tech: React 18, Vite, TypeScript
+      Build Tool: Vite (hot reload enabled)
+      Package Manager: npm 9+
+
+🔙 BACKEND SERVICES
+────────────────────────────────────────────────────────────────────────────────
+  🐘 PHP 8.2 + Apache 2.4
+      URL: http://localhost:8080
+      Workspace: docker compose exec workspace bash
+      Extensions: PDO, mysqli, xdebug, zip
+      Tools: Composer, Apache modules (rewrite enabled)
+      
+  🟢 Node.js 18
+      Purpose: Frontend tooling, npm/yarn commands
+      Access: docker compose exec frontend bash
+
+💾 DATABASES & STORAGE
+────────────────────────────────────────────────────────────────────────────────
+  🗄️  MySQL 8.0
+      Port: 3306
+      User: app_user
+      Password: app_pass
+      GUI: phpMyAdmin (http://localhost:8081)
+      Connection: docker compose exec mysql_db mysql -uapp_user -papp_pass
+
+  📊 MariaDB 10.11 (MySQL Alternative)
+      Port: 3307
+      User: maria_user
+      Password: maria_pass
+      GUI: phpMyAdmin (http://localhost:8081)
+      Connection: docker compose exec mariadb mysql -umaria_user -pmaria_pass
+
+  🐘 PostgreSQL 15
+      Port: 5432
+      User: postgres_user
+      Password: postgres_pass
+      GUI: pgAdmin (http://localhost:5050)
+      Connection: docker compose exec postgres psql -U postgres_user
+
+  🍃 MongoDB 6.0 (NoSQL)
+      Port: 27017
+      User: root
+      Password: rootpass
+      GUI: MongoDB Express (http://localhost:8082)
+      Connection: docker compose exec mongodb mongosh -u root -p rootpass
+
+🛠️ DEVELOPMENT TOOLS & GUIS
+────────────────────────────────────────────────────────────────────────────────
+  📋 phpMyAdmin
+      URL: http://localhost:8081
+      Purpose: MySQL/MariaDB management
+      Features: Database browser, SQL editor, import/export
+
+  🗄️  pgAdmin 4
+      URL: http://localhost:5050
+      Purpose: PostgreSQL management
+      Features: Database browser, query builder, backup/restore
+      Login: admin@example.com / admin
+
+  🌿 MongoDB Express
+      URL: http://localhost:8082
+      Purpose: MongoDB web interface
+      Features: Database browser, document viewer, CRUD operations
+
+  📧 MailHog
+      URL: http://localhost:8025
+      Purpose: Email testing in development
+      Features: Captures all sent emails, HTTP API, web UI
+
+📦 PACKAGE MANAGERS & BUILD TOOLS
+────────────────────────────────────────────────────────────────────────────────
+  🎵 Composer (PHP)
+      Usage: docker compose exec workspace composer [command]
+      Default location: /root/.composer
+      Cached to avoid reinstalls
+
+  📦 npm (Node.js)
+      Usage: docker compose exec frontend npm [command]
+      Version: npm 9+ (comes with Node 18)
+      Cached to /root/.npm
+
+🚀 QUICK START COMMANDS
+────────────────────────────────────────────────────────────────────────────────
+
+  Start Everything:
+    bash startup.sh
+
+  Or manually:
+    docker compose build
+    docker compose up -d
+
+  Check Health:
+    bash health-check.sh
+
+  View Logs:
+    docker compose logs -f [service-name]
+
+  Access Shells:
+    docker compose exec workspace bash       # PHP/Composer
+    docker compose exec frontend bash        # Node/npm
+    docker compose exec mysql_db bash        # MySQL tools
+    docker compose exec postgres bash        # PostgreSQL tools
+    docker compose exec mongodb bash         # MongoDB tools
+
+  Stop Services:
+    docker compose down
+
+🔗 NETWORK & CONNECTIVITY
+────────────────────────────────────────────────────────────────────────────────
+  Networks: 2 separate networks for isolation
+    • backend:  Database services & APIs
+    • frontend: React development server
+
+  Service-to-Service Communication:
+    • Use container names (mysql_db, postgres, mongodb, etc.)
+    • NOT localhost - use service name from other containers
+    
+  Example PHP to MySQL:
+    $pdo = new PDO('mysql:host=mysql_db;dbname=app_db', 'app_user', 'app_pass');
+
+📊 VOLUMES & DATA PERSISTENCE
+────────────────────────────────────────────────────────────────────────────────
+  Database Volumes (auto-created, persisted):
+    • mysql_data       → MySQL data (/var/lib/mysql)
+    • mariadb_data     → MariaDB data (/var/lib/mysql)
+    • postgres_data    → PostgreSQL data (/var/lib/postgresql/data)
+    • mongodb_data     → MongoDB data (/data/db)
+    • pgadmin_data     → pgAdmin data (/var/lib/pgadmin)
+
+  Cache Volumes (for performance):
+    • composer_cache   → PHP Composer packages
+    • npm_cache        → Node.js npm cache
+
+  Live-Sync Directories (real-time file sharing):
+    • ./www            → PHP document root (/var/www/html)
+    • ./frontend       → React project (/app)
+
+📋 CONFIGURATION FILES
+────────────────────────────────────────────────────────────────────────────────
+  docker-compose.yml  → Main service definitions
+  .env                → Environment variables & passwords
+  docker/web/Dockerfile → PHP/Apache custom image
+  frontend/package.json → React dependencies
+  frontend/vite.config.ts → React build configuration
+  db/init/*.sql       → Database initialization scripts
+
+📚 REFERENCE INFORMATION
+────────────────────────────────────────────────────────────────────────────────
+  Full Documentation: README.md
+  Health Check Script: health-check.sh (tests all services)
+  Startup Script: startup.sh (builds and starts everything)
+  
+  Service Dashboard (HTML): http://localhost:8080/dashboard.html
+  Service Dashboard (React): http://localhost:5173
+  PHP Info Page: http://localhost:8080/
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Total Services Running: 11
+  • 2 Backend servers (PHP, Node)
+  • 4 Databases (MySQL, MariaDB, PostgreSQL, MongoDB)
+  • 4 GUI Tools (phpMyAdmin, pgAdmin, MongoDB Express, MailHog)
+  • 1 React Frontend dev server
+
+This environment is designed for web development education and covers:
+✓ Backend development (PHP)
+✓ Frontend development (React/TypeScript)
+✓ Database design & management (SQL & NoSQL)
+✓ Full-stack development practices
+✓ DevOps & containerization (Docker)
+
+═══════════════════════════════════════════════════════════════════════════════
