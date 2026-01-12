@@ -1,0 +1,5 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   WEB DEVELOPMENT LAB - WHAT IS THIS?                      ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Welcome to the Web Development Lab! This is a complete, ready-to-use environment for learning full-stack web development. It includes everything you need: a React-based frontend where you can build interactive user interfaces, a PHP backend where you can handle server-side logic, and multiple professional databases (MySQL, PostgreSQL, MongoDB) that real companies use every day. Everything runs inside Docker containers on your computer, so you don't have to worry about installing software or dealing with configuration headaches—just run one command and you're ready to code. Whether you're building a simple website or a complex application with databases and APIs, this lab gives you the same tools and experience that professional developers use in their jobs.
