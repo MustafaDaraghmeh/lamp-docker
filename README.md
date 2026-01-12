@@ -26,12 +26,17 @@ This environment provides students with everything needed for modern web develop
 | **MariaDB 10.11** | 3307 | maria_user | maria_pass | phpMyAdmin (8081) |
 | **PostgreSQL 15** | 5432 | postgres_user | postgres_pass | pgAdmin (5050) |
 | **MongoDB 6.0** | 27017 | root | rootpass | MongoDB Express (8082) |
+| **Redis 7** | 6379 | - | - | - |
+| **Meilisearch** | 7700 | - | masterKey | - |
+| **MinIO (S3)** | 9000/9001 | minio_user | minio_pass | Console (9001) |
 
 ### 🛠️ **Development Tools**
 - **phpMyAdmin** - MySQL/MariaDB GUI (http://localhost:8081)
 - **pgAdmin** - PostgreSQL Management (http://localhost:5050)
 - **MongoDB Express** - MongoDB Web GUI (http://localhost:8082)
 - **MailHog** - Email testing tool (http://localhost:8025)
+- **Dozzle** - Real-time Log Viewer (http://localhost:8888)
+- **MinIO Console** - S3 Browser (http://localhost:9001)
 - **Node.js 18** - For npm/yarn commands
 - **npm/yarn** - Package managers
 

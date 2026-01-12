@@ -7,10 +7,15 @@ RUN apt-get update \
     zip \
     libzip-dev \
     curl \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libicu-dev \
   && docker-php-ext-configure zip \
-  && docker-php-ext-install pdo pdo_mysql zip mysqli \
-  && pecl install xdebug || true \
-  && docker-php-ext-enable xdebug || true \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install pdo pdo_mysql zip mysqli bcmath intl gd \
+  && pecl install xdebug redis || true \
+  && docker-php-ext-enable xdebug redis || true \
   && rm -rf /var/lib/apt/lists/*
 
 # Copy Composer binary from the official Composer image

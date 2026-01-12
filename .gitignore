@@ -1,0 +1,25 @@
+# Dependencies
+node_modules
+/frontend/node_modules
+/frontend/dist
+/frontend/.vite
+
+# Environment variables
+.env
+
+# Docker volumes and data (if mapped locally)
+/db/data
+/mysql_data
+/postgres_data
+/mongo_data
+
+# IDEs
+.idea
+.vscode
+*.swp
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -75,6 +75,27 @@
       Purpose: Email testing in development
       Features: Captures all sent emails, HTTP API, web UI
 
+  🔍 Dozzle
+      URL: http://localhost:8888
+      Purpose: Real-time log viewer for Docker containers
+      Features: Live logs, search, filter
+
+  ⚡ Redis
+      Port: 6379
+      Purpose: Caching & Message Queue
+      Connection: docker compose exec redis redis-cli
+
+  🔭 Meilisearch
+      URL: http://localhost:7700
+      Purpose: Fast, relevant search engine
+      Key: masterKey
+
+  🪣 MinIO (S3 Compatible)
+      Console: http://localhost:9001
+      API: http://localhost:9000
+      User: minio_user / minio_pass
+      Purpose: Object storage (S3)
+
 📦 PACKAGE MANAGERS & BUILD TOOLS
 ────────────────────────────────────────────────────────────────────────────────
   🎵 Composer (PHP)
