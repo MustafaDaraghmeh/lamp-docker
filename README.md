@@ -37,6 +37,110 @@ This environment provides students with everything needed for modern web develop
 
 ---
 
+## ⚠️ Prerequisites & Platform Setup
+
+### **All Platforms: Docker Desktop Required**
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for your operating system:
+- **Windows**: https://docs.docker.com/desktop/install/windows-install/
+- **macOS**: https://docs.docker.com/desktop/install/mac-install/
+- **Linux**: https://docs.docker.com/engine/install/
+
+---
+
+### **🪟 Windows: WSL 2 is CRITICAL**
+
+This project **REQUIRES WSL 2** (Windows Subsystem for Linux 2) on Windows. Without it, the React frontend will fail with `vite: not found` errors.
+
+#### **Why WSL 2?**
+- Windows NTFS handles symlinks differently than Linux
+- npm creates symlinks in `node_modules/.bin/` for executables
+- These symlinks fail on Windows NTFS without WSL 2
+- WSL 2 provides native Linux filesystem which works correctly
+
+#### **Step 1: Install WSL 2**
+```powershell
+# Run PowerShell as Administrator
+wsl --install -d Ubuntu
+wsl --update
+wsl --set-default-version 2
+```
+
+**Verify WSL 2 is installed:**
+```powershell
+wsl -l -v
+# Should show Ubuntu with VERSION 2
+```
+
+#### **Step 2: Enable Docker Desktop WSL 2 Backend**
+1. Open **Docker Desktop**
+2. Go to **Settings** → **General**
+3. ✅ Enable **"Use the WSL 2 based engine"**
+4. Go to **Settings** → **Resources** → **WSL Integration**
+5. ✅ Check your Ubuntu distribution
+6. Click **Apply & Restart**
+
+**Verify Docker is using Linux:**
+```powershell
+docker info | findstr "OSType"
+# Should show: OSType: linux
+```
+
+#### **Step 3: Clone and Run from WSL 2**
+```bash
+# Open Ubuntu terminal or WSL tab in VSCode
+wsl
+cd ~
+git clone https://github.com/MustafaDaraghmeh/lamp-docker.git
+cd lamp-docker
+bash startup.sh
+```
+
+⚠️ **Important:** Always use **WSL 2 Ubuntu terminal** for Docker commands, not PowerShell/CMD
+
+---
+
+### **🍎 macOS: Additional Configuration**
+
+macOS works well with Docker Desktop, but consider these optimizations:
+
+#### **Docker Desktop Settings for macOS**
+1. **Settings** → **Resources** → **Memory**: Allocate at least **4GB** (8GB recommended)
+2. **Settings** → **Resources** → **CPUs**: Allocate at least **2 CPUs** (4+ recommended)
+3. **Settings** → **File Sharing**: Ensure your project directory is shared
+
+#### **Performance Tips for macOS**
+```bash
+# Use delegated mounts for better performance
+# (Already configured in docker-compose.yml)
+
+# If you experience slow file syncing:
+docker volume prune  # Clean unused volumes
+docker system prune  # Clean system resources
+```
+
+#### **M1/M2 Mac Compatibility**
+If you have an M1 or M2 Mac (Apple Silicon):
+- Docker Desktop works natively (no issues)
+- Verify you have the ARM64 version of Docker Desktop
+- All services run without additional configuration
+
+---
+
+### **🐧 Linux (Ubuntu/Debian): Native Docker**
+
+Linux has native Docker support with no additional setup needed:
+```bash
+# Install Docker
+sudo apt-get update
+sudo apt-get install docker.io docker-compose
+
+# Add your user to docker group (optional)
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. **Start All Services**
@@ -443,6 +547,43 @@ ports:
 docker compose exec frontend rm -rf node_modules package-lock.json
 docker compose exec frontend npm install
 ```
+
+### **🪟 Windows: Frontend (Vite) Errors**
+
+**Error:** `/app/node_modules/.bin/vite: line 1: not found` or similar
+
+**Solution: Verify WSL 2 Setup**
+1. Confirm WSL 2 is installed and set as default:
+   ```powershell
+   wsl -l -v
+   # Should show: Ubuntu ... 2
+   ```
+
+2. Verify Docker uses WSL 2 backend:
+   ```powershell
+   docker info | findstr "OSType"
+   # Should show: OSType: linux
+   ```
+
+3. Clone repo INSIDE WSL 2 home directory:
+   ```bash
+   wsl
+   cd ~
+   git clone https://github.com/MustafaDaraghmeh/lamp-docker.git
+   cd lamp-docker
+   bash startup.sh
+   ```
+
+4. Always use **WSL 2 Ubuntu terminal**, not PowerShell/CMD
+
+5. If error persists, clean rebuild:
+   ```bash
+   docker compose down -v
+   rm -rf frontend/node_modules frontend/package-lock.json
+   docker compose up -d --build
+   ```
+
+**Why this happens:** Windows NTFS symlinks don't work the same as Linux. WSL 2 provides native Linux filesystem support.
 
 ### **Out of Disk Space**
 ```bash
